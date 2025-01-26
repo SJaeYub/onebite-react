@@ -7,47 +7,39 @@ import {useState} from "react";
 //4. 자기소개
 
 const Register = () => {
-    const [name, setName] = useState("name");
-    const [birth, setBirth] = useState();
-    const [country, setCountry] = useState("korea");
-    const [bio, setBio] = useState("hello");
+    const [input, setInput] = useState({
+        name: "",
+        birth: "",
+        country: "",
+        bio: ""
+    });
 
-    const onChaneName = (e) => {
-        // console.log(e.target.value);
-        setName(e.target.value);
-    }
+    const onChange = (e) => {
+        setInput({
+            ...input,
+            [e.target.name]: e.target.value, //[] 안의 변수에 담긴 값을 키로 지정한다
 
-    const onChangeDate = (e) => {
-        setBirth(e.target.value);
-    }
-
-    const onChangeCountry = (e) => {
-        setCountry(e.target.value);
-    }
-
-    const onChangeBio = (e) => {
-        setBio(e.target.value);
-    }
+        })
+    };
 
     return (
         <>
             <div>
-                <input value={name} onChange={onChaneName} placeholder={"name"}/>{name}
+                <input name={"name"} onChange={onChange} placeholder={"name"}/>
             </div>
             <div>
-                <input type={"date"} onChange={onChangeDate} placeholder={"birth"} value={birth}/>{birth}
+                <input name={"birth"} type={"date"} onChange={onChange} placeholder={"birth"} value={input.birth}/>
             </div>
             <div>
-                <select value={"country"} onChange={onChangeCountry}>
+                <select value={input.country} onChange={onChange} name={"country"}>
                     <option>korea</option>
                     <option>japan</option>
                     <option>china</option>
                     <option>america</option>
-                </select>{country}
+                </select>
             </div>
             <div>
-                <textarea onChange={onChangeBio} placeholder={"bio"} value={bio}/>
-                    {bio}
+                <textarea onChange={onChange} placeholder={"bio"} value={input.bio} name={"bio"}/>
             </div>
         </>
     );
