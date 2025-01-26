@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState, useRef} from "react";
 
 //간단한 회원가입
 //1. 이름
@@ -13,8 +13,12 @@ const Register = () => {
         country: "",
         bio: ""
     });
+    const countRef = useRef(0);
+    const inputRef = useRef();
 
     const onChange = (e) => {
+        countRef.current++;
+        console.log(countRef.current);
         setInput({
             ...input,
             [e.target.name]: e.target.value, //[] 안의 변수에 담긴 값을 키로 지정한다
@@ -22,10 +26,20 @@ const Register = () => {
         })
     };
 
+    const onSubmit = () => {
+
+        if (input.name === "") {
+            inputRef.current.focus();
+            alert("Please enter name");
+        }
+    }
+
     return (
-        <>
+        <div>
             <div>
-                <input name={"name"} onChange={onChange} placeholder={"name"}/>
+                <input
+                    ref={inputRef}
+                    name={"name"} onChange={onChange} placeholder={"name"}/>
             </div>
             <div>
                 <input name={"birth"} type={"date"} onChange={onChange} placeholder={"birth"} value={input.birth}/>
@@ -41,7 +55,9 @@ const Register = () => {
             <div>
                 <textarea onChange={onChange} placeholder={"bio"} value={input.bio} name={"bio"}/>
             </div>
-        </>
+
+            <button onClick={onSubmit}>제출</button>
+        </div>
     );
 }
 
