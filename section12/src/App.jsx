@@ -80,18 +80,6 @@ function App() {
 
     return (
         <>
-            <button onClick={() => {
-                onCreate(new Date().getTime(), 1, "test");
-            }}>일기 생성 테스트
-            </button>
-            <button onClick={() => {
-                onUpdate(1, new Date().getTime(), 3, "update");
-            }}>일기 수정 테스트
-            </button>
-            <button onClick={() => {
-                onDelete(1);
-            }}>일기 삭제 테스트
-            </button>
             <DiaryStateContext.Provider value={data}>
                 <DiaryDispatchContext.Provider value={{onCreate, onUpdate, onDelete}}>
                 <Routes> {/*// routes 바깥의 요소들은 어떤 컴포넌트가 리턴되도 콩통으로 표시됨*/}
