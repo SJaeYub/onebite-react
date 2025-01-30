@@ -52,6 +52,12 @@ function App() {
     const [data, dispatch] = useReducer(reducer, mockData);
     const idRef = useRef(3);
 
+    // localStorage.setItem("test", "hello");
+    // localStorage.setItem("person", JSON.stringify({name: "이정환"}));
+
+    const item = JSON.parse(localStorage.getItem("person"));
+    localStorage.removeItem("person");
+
     //새 일기 추가
     const onCreate = (createdDate, emotionId, content) => {
         dispatch({
