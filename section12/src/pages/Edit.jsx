@@ -4,24 +4,14 @@ import Button from "../components/Button.jsx";
 import Editor from "../components/Editor.jsx";
 import {useContext, useEffect, useState} from "react";
 import {DiaryDispatchContext, DiaryStateContext} from "../App.jsx";
+import useDiary from "../hooks/useDiary.jsx";
 
 const Edit = () => {
     const params = useParams();
     const nav = useNavigate();
     const {onDelete, onUpdate} = useContext(DiaryDispatchContext);
-    const data = useContext(DiaryStateContext);
-    const [curDiaryItem, setCurDiaryItem] = useState()
 
-    useEffect(() => {
-        const currentDiaryItem = data.find((item) => String(item.id) === String(params.id));
-
-        if (!currentDiaryItem) {
-            alert("No such current diary item!");
-            nav("/", {replace: true});
-        }
-
-        setCurDiaryItem(currentDiaryItem);
-    }, [params.id]);
+    const curDiaryItem = useDiary(params.id);
 
     const onClickDelete = () => {
         const flag = window.confirm("Are you sure you want to delete this page?"); //확인과 취소 버튼이 존재하는 확인창
