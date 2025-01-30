@@ -38,7 +38,8 @@ function reducer(state, action) {
         case "UPDATE":
             return state.map((item) => String(item.id) === String(action.data.id) ? action.data : item);
         case "DELETE":
-            return state.filter((item) => item.id !== action.data.id);
+            // console.log("call delete");
+            return state.filter((item) => String(item.id) !== String(action.id));
     }
 
 }
@@ -78,9 +79,7 @@ function App() {
     const onDelete = (id) => {
         dispatch({
             type: "DELETE",
-            data: {
-                id
-            }
+            id
         })
     }
 
@@ -88,15 +87,15 @@ function App() {
         <>
             <DiaryStateContext.Provider value={data}>
                 <DiaryDispatchContext.Provider value={{onCreate, onUpdate, onDelete}}>
-                <Routes> {/*// routes 바깥의 요소들은 어떤 컴포넌트가 리턴되도 콩통으로 표시됨*/}
-                    {/*routes 컴포넌트 하위엔 route만 쓸수있음
+                    <Routes> {/*// routes 바깥의 요소들은 어떤 컴포넌트가 리턴되도 콩통으로 표시됨*/}
+                        {/*routes 컴포넌트 하위엔 route만 쓸수있음
             위에서 부터 아래로 해당 경로에 따른 페이지 컴포넌트를 리턴*/}
-                    <Route path={"/"} element={<Home/>}/>
-                    <Route path={"/new"} element={<New/>}/>
-                    <Route path={"/diary/:id"} element={<Diary/>}/> {/*path 뒤의 : 이후 인자는 동적 파라미터를 의미함*/}
-                    <Route path={"*"} element={<NotFound/>}/>
-                    <Route path={"/edit/:id"} element={<Edit/>}/>
-                </Routes>
+                        <Route path={"/"} element={<Home/>}/>
+                        <Route path={"/new"} element={<New/>}/>
+                        <Route path={"/diary/:id"} element={<Diary/>}/> {/*path 뒤의 : 이후 인자는 동적 파라미터를 의미함*/}
+                        <Route path={"*"} element={<NotFound/>}/>
+                        <Route path={"/edit/:id"} element={<Edit/>}/>
+                    </Routes>
                 </DiaryDispatchContext.Provider>
             </DiaryStateContext.Provider>
         </>
