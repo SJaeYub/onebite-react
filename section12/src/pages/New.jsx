@@ -2,13 +2,16 @@ import Header from "../components/Header.jsx";
 import Button from "../components/Button.jsx";
 import Editor from "../components/Editor.jsx";
 import {replace, useNavigate} from "react-router-dom";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {DiaryDispatchContext} from "../App.jsx";
+import usePageTitle from "../hooks/usePageTitle.jsx";
 
 const New = () => {
     const nav = useNavigate();
     const {onCreate} = useContext(DiaryDispatchContext);
-    
+
+    usePageTitle("new diary");
+
     const onSubmit = (input) => {
         onCreate(input.createdDate.getTime(), input.emotionId, input.content);
 
